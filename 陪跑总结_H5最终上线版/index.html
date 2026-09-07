@@ -1,0 +1,50 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,viewport-fit=cover">
+<title>陪跑总结｜这4个月的思考心跳</title>
+<meta name="description" content="打开你的专属陪跑年度报告">
+<style>
+*{box-sizing:border-box}html,body{margin:0;height:100%;overflow:hidden;background:#fff8ef;font-family:-apple-system,BlinkMacSystemFont,"PingFang SC","Microsoft YaHei",sans-serif}
+#app{height:100vh;width:100vw;position:relative;overflow:hidden}
+.page{position:absolute;inset:0;display:flex;justify-content:center;align-items:center;opacity:0;transform:translateY(60px) scale(.98);transition:.7s ease}
+.page.active{opacity:1;transform:none}
+.page img{width:100%;height:100%;object-fit:contain;animation:zoom 7s infinite}
+@keyframes zoom{50%{transform:scale(1.015)}}
+.hud{position:fixed;left:0;right:0;bottom:24px;text-align:center;color:#777;font-size:13px}
+.arrow{display:block;margin:auto;width:14px;height:14px;border-left:2px solid #777;border-top:2px solid #777;transform:rotate(45deg);animation:a 1.5s infinite}
+@keyframes a{50%{transform:translateY(-8px) rotate(45deg)}}
+</style>
+</head>
+<body>
+<div id="app">
+<div class="page active"><img src="assets/page1.png"></div>
+<div class="page"><img src="assets/page2.png"></div>
+<div class="page"><img src="assets/page3.png"></div>
+<div class="page"><img src="assets/page4.png"></div>
+<div class="page"><img src="assets/page5.png"></div>
+<div class="page"><img src="assets/page6.png"></div>
+<div class="page"><img src="assets/page7.png"></div>
+</div>
+<div class="hud"><span class="arrow"></span>上滑查看陪跑总结</div>
+<script>
+let i=0,start=0,busy=false;
+const pages=document.querySelectorAll(".page");
+function go(n){
+ if(n<0||n>=pages.length||busy)return;
+ busy=true;
+ pages[i].classList.remove("active");
+ i=n;
+ pages[i].classList.add("active");
+ setTimeout(()=>busy=false,700);
+}
+document.addEventListener("touchstart",e=>start=e.touches[0].clientY);
+document.addEventListener("touchend",e=>{
+ let d=start-e.changedTouches[0].clientY;
+ if(d>50)go(i+1);
+ if(d<-50)go(i-1);
+});
+</script>
+</body>
+</html>
